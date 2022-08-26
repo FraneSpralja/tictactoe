@@ -180,4 +180,13 @@ button.button {
     .marcaBox > input {
         margin: auto;
     }
+
+    .container:not(.formJugador) {
+        padding: 0;
+    }
+
+    .row > div {
+        height: 100px;
+        width: 100px;
+    }
 }
