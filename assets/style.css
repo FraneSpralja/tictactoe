@@ -151,3 +151,33 @@ button.button {
     font-size: 30px;
     border: 1px solid #8f0b0b;
 }
+
+@media (max-width: 500px) {
+    .container.formJugador {
+        width: 100%;
+        height: 50vh;
+    }
+
+    input.nombre {
+        max-width: 200px;
+    }
+
+    button.button {
+        width: 90%;
+    }
+
+    .marcaBox {
+        display: flex;
+        flex-flow: row;
+        flex-wrap: wrap;
+        row-gap: 20px;
+    }
+
+    .marcaBox > label {
+        flex: 0 0 50%;
+    }
+
+    .marcaBox > input {
+        margin: auto;
+    }
+}
