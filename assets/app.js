@@ -35,11 +35,11 @@ function preguntarJugador() {
     
     buttonForm.onclick = function () {
         validarInfoJugador(nombreJugador.value, inputCircle, inputCross)
+        seleccionarQuienParte()
         setTimeout(() => {
             document.querySelector('.container.formJugador').remove()
             jugarGato()
         }, 1500)
-        seleccionarQuienParte()
     }
 }
 
@@ -94,7 +94,7 @@ function validarInfoJugador(nombreJugador, inputCircle, inputCross) {
         jugador.marca = inputCircle.value;
         cpu.marca = inputCross.value;
         circulo = true;
-    }else{
+    }else if(inputCross.checked){
         jugador.marca = inputCross.value;
         cpu.marca = inputCircle.value;
         cruz = true;
@@ -198,8 +198,19 @@ function ganadorEs() {
 
 function competirContraPC() {
 
+    const stop = document.querySelector('.stop');
+        
+    if(stop) {
+        return
+    }
+
     const bloques = document.querySelectorAll('.row > div')
     if(start === true) {
+        const stop = document.querySelector('.stop');
+
+        if(stop) {
+            return
+        }
 
         bloques.forEach(ele => {
             ele.onclick = function() {
@@ -232,8 +243,17 @@ function competirContraPC() {
             }
         })
     } else if (start !== true) {
-
+        
+        
         seleccionarBloqueRandom(jugador.marca)
+        
+        const stop = document.querySelector('.stop');
+        
+        ganadorEs()
+        
+        if(stop) {
+            return
+        }
 
         bloques.forEach(ele => {
             ele.onclick = function() {
@@ -255,10 +275,10 @@ function competirContraPC() {
                     })
                 }     
                 setTimeout(() => {
-                    seleccionarBloqueRandom(ele.dataset.id)
                     bloques.forEach(div => {
                         div.classList.remove('noEvents')
                     })           
+                    seleccionarBloqueRandom(ele.dataset.id)
                 }, 1000)
                 
                 ganadorEs()
@@ -277,7 +297,7 @@ function seleccionarBloqueRandom(id) {
     }
 
     const divArrays = document.querySelectorAll('#app > .container > .row > div:not(.jugador, .cpu)');
-    if(divArrays.length >= 1) {
+    if(divArrays.length > 1) {
         let index = Math.floor(Math.random() * (0 - divArrays.length + 1)) + divArrays.length;
 
         let bloqueCPU = divArrays[index]
@@ -288,6 +308,19 @@ function seleccionarBloqueRandom(id) {
         } else {
             bloqueCPU.dataset.id = 'circulo'
         }
+
+        ganadorEs()
+    } else if (divArrays.length === 1) {
+        let bloqueCPU = divArrays[0]
+        bloqueCPU.classList.add('cpu')
+
+        if(id == 'circulo') {
+            bloqueCPU.dataset.id = 'cruz'
+        } else {
+            bloqueCPU.dataset.id = 'circulo'
+        }
+
+        ganadorEs()
     }
 }
 
@@ -474,6 +507,4 @@ function mensaje(mensaje) {
     mensajeDiv.appendChild(parrafoMesaje);
 
     container.appendChild(mensajeDiv);
-
-
 }
