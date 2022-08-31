@@ -484,7 +484,7 @@ function definirGanador() {
         console.log('El cpu hizo línea en la primera columna')
         win = 2
 
-    } else if(document.querySelectorAll('#app > .container > .row > div:not(.jugador, .cpu)').length = 0) {
+    } else if(document.querySelectorAll('#app > .container > .row > div:not(.jugador, .cpu)').length < 1) {
         console.log('Esto fue un empate')
     }
 }
